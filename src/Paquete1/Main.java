@@ -6,13 +6,11 @@ import javax.swing.JFrame;
 public class Main {
 
 	public static Escenario escenario;
-        
-        // HACIENDO PRUEBAS EN GITHUB
 	
 	public static void main(String[] args) {
 		
 		// creacion de la ventana del juego
-		JFrame ventana = new JFrame("Juego de Mario Bros");
+		JFrame ventana = new JFrame("Juego de Mario Bros"); // titulo de la ventana
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setSize(700, 360);
 		ventana.setLocationRelativeTo(null);
@@ -26,6 +24,4 @@ public class Main {
 		ventana.setVisible(true);		
 	}
 }
-
-
 

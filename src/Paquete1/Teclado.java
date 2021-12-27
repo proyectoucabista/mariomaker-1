@@ -11,9 +11,16 @@ public class Teclado implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT){ // tecla derecha
+                    
+                    if(Main.escenario.getxPos() == -1){ 
+        		Main.escenario.setxPos(0);     // Réinitialisation de setxPos
+        		Main.escenario.setFondo1(-50); // Réinitialisation de xFond1
+        		Main.escenario.setFondo2(750); // Réinitialisation de xFond2
+        	}	
+                    
 			Main.escenario.setDx(1);
-		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){ // tecla izquierda
 			Main.escenario.setDx(-1);
 		}
 		

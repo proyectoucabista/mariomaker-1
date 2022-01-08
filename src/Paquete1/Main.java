@@ -15,8 +15,9 @@ public class Main {
 		ventana.setSize(700, 360);
 		ventana.setLocationRelativeTo(null);
 		ventana.setResizable(false);
-		ventana.setAlwaysOnTop(true);
+		ventana.setAlwaysOnTop(true);{
 		
+                System.out.println("Texto de ejemplo");
 		// Iniciacion de la escena
 		escenario = new Escenario();
 				

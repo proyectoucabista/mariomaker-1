@@ -11,7 +11,7 @@ public class Tiempo implements Runnable{
 		while(true){ 
 			
 			Main.escenario.repaint();
-			System.out.println("ok"); // SI TODO esta bien
+			// System.out.println("ok"); // SI TODO esta bien
 			try {
 				Thread.sleep(PAUSE);
 			}catch (InterruptedException e) {}

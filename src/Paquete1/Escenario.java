@@ -1,5 +1,7 @@
 package Paquete1;
 
+import Objetos.Bloque;
+import Objetos.Tuberia;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -8,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Personajes.Mario;
+
 
 @SuppressWarnings("serial")
 public class Escenario extends JPanel {
@@ -34,6 +37,8 @@ public class Escenario extends JPanel {
         private int xPos;
         
         public Mario mario;
+        public Tuberia tuberia1;
+	public Bloque bloque1;
 	
 	//**** CONSTRUCTOR ****//	
 	public Escenario(){
@@ -49,7 +54,7 @@ public class Escenario extends JPanel {
 		icoFond = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png"));
 		this.imgFondo1 = this.icoFond.getImage();
                 // MARIO
-		icoMario = new ImageIcon(getClass().getResource("/Imagenes/Mario1.png"));
+		icoMario = new ImageIcon(getClass().getResource("/Imagenes/MarioDerecha.png"));
 		this.imgMario = this.icoMario.getImage();
                 // FONDO2.1
                 this.imgFondo2 = this.icoFond.getImage();
@@ -64,6 +69,9 @@ public class Escenario extends JPanel {
                 
                 
                 mario = new Mario(300,245);
+                
+                tuberia1 = new Tuberia(600, 230);
+		bloque1 = new Bloque(400, 180);
                 
 		
 		this.setFocusable(true);
@@ -92,28 +100,22 @@ public class Escenario extends JPanel {
 	
 	
 	//**** METODOS ****//
-	public void deplacementFond(){
+	public void desplazamientoFondo(){
             
             this.Fondo1 = this.Fondo1 - this.dx;
             this.Fondo2 = this.Fondo2 - this.dx;
             
             if(this.xPos >= 0){
-			// Mise à jour des positions des éléments du jeu lors du déplacement de mario
-			this.xPos = this.xPos + this.dx;		
-		    this.Fondo1 = this.Fondo1 - this.dx;
-		    this.Fondo2 = this.Fondo2 - this.dx;
+ 		this.xPos = this.xPos + this.dx;		
+		this.Fondo1 = this.Fondo1 - this.dx;
+		this.Fondo2 = this.Fondo2 - this.dx;
 		}
             
-            // mostrar fondo infinito
-            if(this.Fondo1 == -800){
-                this.Fondo1 =800;
-            }else if(Fondo2==-800){
-              this.Fondo2 =800;  
-            }else if(Fondo1==800){
-              this.Fondo2 =-800;  
-            }else if(Fondo2==800){
-              this.Fondo2 =-800;  
-            }
+            // mostrar fondo infinito ARREGLADO
+            if(this.Fondo1 == -800){this.Fondo1 = 800;}
+		else if(this.Fondo2 == -800){this.Fondo2 = 800;}
+		else if(this.Fondo1 == 800){this.Fondo1 = -800;}
+		else if(this.Fondo2 == 800){this.Fondo2 = -800;}
         
         }
 
@@ -123,16 +125,20 @@ public class Escenario extends JPanel {
 		super.paintComponent(g);
 		Graphics g2 = (Graphics2D)g;
 		
-		this.deplacementFond();
+		this.desplazamientoFondo();
 		
 		g2.drawImage(this.imgFondo1, this.Fondo1, 0, null); // diseño de imagen de fondo
                 
                 g2.drawImage(this.imgFondo2, this.Fondo2, 0, null);
                 
- 		g2.drawImage(this.mario.getImgMario(), 300, 245, null); 
+ 		g2.drawImage(this.mario.caminar("Mario", 25), 300, 245, null); //*** code provisoire
+ 		//g2.drawImage(this.mario.getImgMario(), 300, 245, null); 
 
                 g2.drawImage(imgCastillo1, 10 - this.xPos, 95, null); // dejar atras al caminar
-                
+            
  		g2.drawImage(imgLetrero, 220 - this.xPos, 234, null); // dejar atras al caminar
-	}
+                g2.drawImage(this.tuberia1.getImgTuberia(), this.tuberia1.getX() - this.xPos, this.tuberia1.getY(), null);
+ 		g2.drawImage(this.bloque1.getImgBloque(), this.bloque1.getX() - this.xPos, this.bloque1.getY(), null);
+
+        }
 }

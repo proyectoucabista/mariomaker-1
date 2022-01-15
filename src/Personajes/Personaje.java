@@ -1,6 +1,10 @@
 package Personajes;
 
-public class Personaje {
+import Paquete1.Main;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
+public class Personaje{
 
 	//**** VARIABLES ****//
 	private int ancho, altura; //dimensiones del personaje
@@ -16,8 +20,8 @@ public class Personaje {
         this.x = x;
         this.y = y;
         this.contador = 0;
-        this.caminar = caminar;
-        this.miraDerecha = miraDerecha;
+        this.caminar = false;
+        this.miraDerecha = true;
         
     }
     
@@ -30,63 +34,103 @@ public class Personaje {
         
     }
 	
-	 //**** GETTES & SETTERS ****//
+	 //**** GETTES ****//
 
     public int getAncho() {
         return ancho;
     }
+    
+    public int getAltura() {
+        return altura;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public int getContador() {
+        return contador;
+    }
+    
+    //**** SETTERS ****//
 
     public void setAncho(int ancho) {
         this.ancho = ancho;
     }
 
-    public int getAltura() {
-        return altura;
-    }
+    
 
     public void setAltura(int altura) {
         this.altura = altura;
     }
 
-    public int getX() {
-        return x;
-    }
+    
 
     public void setX(int x) {
         this.x = x;
     }
 
-    public int getY() {
-        return y;
-    }
+    
 
     public void setY(int y) {
         this.y = y;
+    }
+    
+     public void setCaminar(boolean caminar) {
+        this.caminar = caminar;
+    }
+     
+     public void setMiraDerecha(boolean miraDerecha) {
+        this.miraDerecha = miraDerecha;
+    }
+
+    
+
+    public void setContador(int contador) {
+        this.contador = contador;
     }
 
     public boolean vCaminar() {
         return caminar;
     }
 
-    public void setCaminar(boolean caminar) {
-        this.caminar = caminar;
-    }
+   
 
     public boolean vMiraDerecha() {
         return miraDerecha;
     }
 
-    public void setMiraDerecha(boolean miraDerecha) {
-        this.miraDerecha = miraDerecha;
-    }
-
-    public int getContador() {
-        return contador;
-    }
-
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
+    
     
      // metodos..
+    
+    public Image caminar(String nom, int frecuencia){
+		
+		String str;
+		ImageIcon ico;
+		Image img;
+		
+		if(this.caminar == false || Main.escenario.getxPos() <= 0){
+			if(this.miraDerecha == true){str = "/Imagenes/" + nom + "Derecha.png";}
+			else{str = "/Imagenes/" + nom + "Izquierda.png";}
+		}else{
+			this.contador++;
+			if(this.contador / frecuencia == 0){
+				if(this.miraDerecha == true){str = "/Imagenes/" + nom + "Derecha.png";}
+				else{str = "/Imagenes/" + nom + "Izquierda.png";}
+			}else{
+				if(this.miraDerecha == true){str = "/Imagenes/" + nom + "MarchaDerecha.png";}
+				else{str = "/Imagenes/" + nom + "MarchaIzquierda.png";}
+			}
+			if(this.contador == 2 * frecuencia){this.contador = 0;}
+		}
+		//Affichage de l'image du personnage
+		ico = new ImageIcon(getClass().getResource(str));
+		img = ico.getImage();
+		return img;
+	}
 }

@@ -18,8 +18,8 @@ public class Mario extends Personaje{
       //**** CONSTRUCTOR ***//	
 	public Mario(int x, int y) {
 
-	super(x,y,28,50);		
-	this.icoMario = new ImageIcon("src/Imagenes/Mario1.png");
+	super(x,y,30,50);		
+	this.icoMario = new ImageIcon("src/Imagenes/MarioDerecha.png");
 	this.imgMario = this.icoMario.getImage();
 	}
 
@@ -33,6 +33,6 @@ public class Mario extends Personaje{
 	//**** SETTERS ****//
 		
 
-	//**** METHODES ****//		
+	//**** METODOS ****//		
 }
 

@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package paquete1;
+package Paquete1;
 
 
 import java.nio.channels.Selector;
 import java.nio.ByteBuffer;
-import java.net.ServerSocket;
+import java.net.*;
 import java.util.Set;
 import java.io.*;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.nio.channels.*;
 
 public class Server implements Runnable{
     private int port;
@@ -39,11 +38,67 @@ public class Server implements Runnable{
                 if (client == 0) {
                     continue;
                 }
-                //Set<SelectionKey> keys = selector.selectedKeys();
+                
+                Set<SelectionKey> keys = selector.selectedKeys();
+                Iterator<SelectionKey> it = keys.iterator(); 
+                
+                while (it.hasNext()) {
+                    SelectionKey key = (SelectionKey)it.next();
+                    
+                    
+                    
+                    if ((key.readyOps() & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) {
+                        Socket socket = serverSocket.accept();
+                        
+                        System.out.println("Coneccion desde: " + socket);
+                        
+                        SocketChannel socketChannel = socket.getChannel();
+                        socketChannel.configureBlocking(false);
+                        socketChannel.register(selector, SelectionKey.OP_READ);
+                    
+                    } else if ((key.readyOps() & SelectionKey.OP_READ) == SelectionKey.OP_READ) {
+                        SocketChannel channel = null;
+                        
+                        channel = (SocketChannel)key.channel();
+                        
+                        boolean connection =readData(channel, buffer) ;
+                        
+                        if (!connection) {
+                            key.cancel();
+                            Socket socket = null;
+                            socket = channel.socket();
+                            socket.close();
+                        }
+                        keys.clear();
+                    }
+                }
             } catch(IOException e) {
                 e.printStackTrace();
             }
         }
     }
     
+    public void open() {
+        ServerSocketChannel serverChannel;
+        
+        try {
+            serverChannel = ServerSocketChannel.open();
+            serverChannel.configureBlocking(false);
+            
+            serverSocket = serverChannel.socket();
+            
+            InetSocketAddress address = new InetSocketAddress(port);
+            serverSocket.bind(address);
+            
+            selector = Selector.open();
+            serverChannel.register(selector, SelectionKey.OP_ACCEPT);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean readData(SocketChannel channel, ByteBuffer buffer) {
+        boolean xd = true;
+        return xd;
+    }
 }

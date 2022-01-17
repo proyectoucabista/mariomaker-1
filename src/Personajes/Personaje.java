@@ -1,5 +1,6 @@
 package Personajes;
 
+import Objetos.Objeto;
 import Paquete1.Main;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -133,4 +134,12 @@ public class Personaje{
 		img = ico.getImage();
 		return img;
 	}
+    
+    
+    public boolean contactoAntes(Objeto objeto){
+    	if(this.vMiraDerecha() == true){
+    		if(this.x + this.altura < objeto.getX() || this.x + this.ancho > objeto.getX() + 5 || this.y + this.altura <= objeto.getY() || this.y >= objeto.getY() + objeto.getAltura()){return false;}
+    	    else{return true;}
+    	}else{return false;}	    	
+    }
 }

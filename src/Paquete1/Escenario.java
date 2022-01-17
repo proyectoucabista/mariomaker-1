@@ -33,8 +33,10 @@ public class Escenario extends JPanel {
 	
 	private int Fondo1;
         private int Fondo2;
-	private int dx;
-        private int xPos;
+	private int dx; // desplazamiento
+        private int xPos; // posicion del juego
+        private int ySuelo; // altura actual desde el suelo
+        private int alturaTecho; // altura actual del techo
         
         public Mario mario;
         public Tuberia tuberia1;
@@ -49,6 +51,8 @@ public class Escenario extends JPanel {
                 this.Fondo2 = 750; // duplicar fondo y se vea infinito
 		this.dx = 0;
                 this.xPos = -1;
+                this.ySuelo = 293;
+		this.alturaTecho = 0;
 		
                 //FONDO1
 		icoFond = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png"));
@@ -87,6 +91,16 @@ public class Escenario extends JPanel {
 	public int getDx() {return dx;}
         
         public int getxPos() {return xPos;}
+
+    public int getySuelo() {
+        return ySuelo;
+    }
+
+    public int getAlturaTecho() {
+        return alturaTecho;
+    }
+        
+        
 	
 	
 	//**** SETTERS ****//
@@ -97,13 +111,22 @@ public class Escenario extends JPanel {
         public void setFondo1(int Fondo1) {this.Fondo1 = Fondo1;}
 
 	public void setFondo2(int Fondo2) {this.Fondo2 = Fondo2;}
+
+        public void setySuelo(int ySuelo) {
+        this.ySuelo = ySuelo;
+    }
+
+    public void setAlturaTecho(int alturaTecho) {
+        this.alturaTecho = alturaTecho;
+    }
+        
+        
 	
 	
 	//**** METODOS ****//
 	public void desplazamientoFondo(){
             
-            this.Fondo1 = this.Fondo1 - this.dx;
-            this.Fondo2 = this.Fondo2 - this.dx;
+//           
             
             if(this.xPos >= 0){
  		this.xPos = this.xPos + this.dx;		
@@ -124,21 +147,31 @@ public class Escenario extends JPanel {
 		
 		super.paintComponent(g);
 		Graphics g2 = (Graphics2D)g;
+                
+                if(this.mario.contactoAntes(tuberia1) == true){
+			this.mario.setCaminar(false);
+			this.dx = 0;
+		}
 		
 		this.desplazamientoFondo();
+                
+                this.tuberia1.desplazamiento();
 		
 		g2.drawImage(this.imgFondo1, this.Fondo1, 0, null); // diseño de imagen de fondo
                 
                 g2.drawImage(this.imgFondo2, this.Fondo2, 0, null);
                 
- 		g2.drawImage(this.mario.caminar("Mario", 25), 300, 245, null); //*** code provisoire
+ 		//g2.drawImage(this.mario.caminar("Mario", 25), 300, 245, null); // codigo adicional
  		//g2.drawImage(this.mario.getImgMario(), 300, 245, null); 
 
                 g2.drawImage(imgCastillo1, 10 - this.xPos, 95, null); // dejar atras al caminar
             
  		g2.drawImage(imgLetrero, 220 - this.xPos, 234, null); // dejar atras al caminar
-                g2.drawImage(this.tuberia1.getImgTuberia(), this.tuberia1.getX() - this.xPos, this.tuberia1.getY(), null);
+                g2.drawImage(this.tuberia1.getImgTuberia(), this.tuberia1.getX() - 20, this.tuberia1.getY(), null);
  		g2.drawImage(this.bloque1.getImgBloque(), this.bloque1.getX() - this.xPos, this.bloque1.getY(), null);
+                
+                if(this.mario.isSalto()){g2.drawImage(this.mario.salto(), this.mario.getX(), this.mario.getY(), null);}
+ 		else{g2.drawImage(this.mario.caminar("Mario", 25), this.mario.getX(), this.mario.getY(), null);}
 
         }
 }

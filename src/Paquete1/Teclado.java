@@ -24,6 +24,10 @@ public class Teclado implements KeyListener {
             Main.escenario.mario.setMiraDerecha(false);
             Main.escenario.setDx(-1);
         }
+        
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){      // Mario Salta	
+        	Main.escenario.mario.setSalto(true);       		
+        }
 
     }
 

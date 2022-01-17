@@ -1,6 +1,8 @@
 
 package Objetos;
 
+import Paquete1.Main;
+
 public class Objeto{
 
 	//**** VARIABLES ****//
@@ -39,5 +41,11 @@ public class Objeto{
 	
 	
 	//**** METODOS ****//	
+        
+        	public void desplazamiento(){		
+		if(Main.escenario.getxPos() >= 0){
+			this.x = this.x - Main.escenario.getDx();
+		}
+	}
 }
 

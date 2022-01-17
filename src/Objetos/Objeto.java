@@ -1,5 +1,6 @@
-
 package Objetos;
+
+import Paquete1.Main;
 
 public class Objeto{
 
@@ -13,7 +14,7 @@ public class Objeto{
 			
 		this.x = x;
 		this.y = y;
-		this.ancho = altura;
+		this.ancho = ancho;
 		this.altura = altura;
 	}
 	
@@ -38,6 +39,11 @@ public class Objeto{
 	public void setAltura(int altura) {this.altura = altura;}
 	
 	
-	//**** METODOS ****//	
+	//**** METODOS ****//
+        public void desplazamiento(){		
+		if(Main.escenario.getxPos() >= 0){
+			this.x = this.x - Main.escenario.getDx();
+		}
+	}
 }
 

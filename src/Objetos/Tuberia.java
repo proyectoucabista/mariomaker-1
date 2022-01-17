@@ -1,9 +1,6 @@
-
 package Objetos;
 
-
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 public class Tuberia extends Objeto{

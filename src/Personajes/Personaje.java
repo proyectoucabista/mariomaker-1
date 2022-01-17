@@ -1,5 +1,6 @@
 package Personajes;
 
+import Objetos.Objeto;
 import Paquete1.Main;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -34,7 +35,7 @@ public class Personaje{
         
     }
 	
-	 //**** GETTES ****//
+    //**** GETTES ****//
 
     public int getAncho() {
         return ancho;
@@ -62,33 +63,25 @@ public class Personaje{
         this.ancho = ancho;
     }
 
-    
-
     public void setAltura(int altura) {
         this.altura = altura;
     }
-
-    
 
     public void setX(int x) {
         this.x = x;
     }
 
-    
-
     public void setY(int y) {
         this.y = y;
     }
     
-     public void setCaminar(boolean caminar) {
+    public void setCaminar(boolean caminar) {
         this.caminar = caminar;
     }
      
-     public void setMiraDerecha(boolean miraDerecha) {
+    public void setMiraDerecha(boolean miraDerecha) {
         this.miraDerecha = miraDerecha;
     }
-
-    
 
     public void setContador(int contador) {
         this.contador = contador;
@@ -98,14 +91,10 @@ public class Personaje{
         return caminar;
     }
 
-   
-
     public boolean vMiraDerecha() {
         return miraDerecha;
     }
 
-    
-    
      // metodos..
     
     public Image caminar(String nom, int frecuencia){
@@ -128,9 +117,15 @@ public class Personaje{
 			}
 			if(this.contador == 2 * frecuencia){this.contador = 0;}
 		}
-		//Affichage de l'image du personnage
+		// Visualización de imágenes de Mario
 		ico = new ImageIcon(getClass().getResource(str));
 		img = ico.getImage();
 		return img;
 	}
+    public boolean contactoAntes(Objeto objet){
+    	if(this.vMiraDerecha() == true){
+                return !(this.x + this.altura < objet.getX() || this.x + this.ancho > objet.getX() + 5 || this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
+    	}else{return false;}	    	
+    }
+    
 }

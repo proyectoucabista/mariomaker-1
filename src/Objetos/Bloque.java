@@ -14,7 +14,7 @@ public class Bloque extends Objeto{
 		//**** CONSTRUCTOR	****//	
 		public Bloque(int x, int y) {
 
-			super(x, y, 43, 65);		
+			super(x, y, 30, 30);		
 			this.icoBloque = new ImageIcon(getClass().getResource("/Imagenes/Ladrillo.png"));
 			this.imgBloque = this.icoBloque.getImage();
 		}

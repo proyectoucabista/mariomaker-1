@@ -128,14 +128,14 @@ public class Escenario extends JPanel {
 		super.paintComponent(g);
 		Graphics g2 = (Graphics2D)g;
                 
-                if(this.mario.contactoAntes(tuberia1) == true){
-			this.mario.setCaminar(false);
-			this.dx = 0;
-		}
+                // Detección de contacto de mario con un objeto.
+		if(this.mario.cerca(this.bloque1)){this.mario.contacto(bloque1);}
+ 		if(this.mario.cerca(this.tuberia1)){this.mario.contacto(tuberia1);}
 		
+                // Mover todos los objetos "fijos" en el juego.
 		this.desplazamientoFondo();
-                
                 this.tuberia1.desplazamiento();
+                this.bloque1.desplazamiento();
 		
 		g2.drawImage(this.imgFondo1, this.Fondo1, 0, null); // diseño de imagen de fondo   
                 g2.drawImage(this.imgFondo2, this.Fondo2, 0, null); 
@@ -143,7 +143,7 @@ public class Escenario extends JPanel {
                 g2.drawImage(imgCastillo1, 10 - this.xPos, 95, null); // dejar atras al caminar
  		g2.drawImage(imgLetrero, 220 - this.xPos, 234, null); // dejar atras al caminar
                 g2.drawImage(this.tuberia1.getImgTuberia(), this.tuberia1.getX() - 20, this.tuberia1.getY(), null);
- 		g2.drawImage(this.bloque1.getImgBloque(), this.bloque1.getX() - this.xPos, this.bloque1.getY(), null);
+ 		g2.drawImage(this.bloque1.getImgBloque(), this.bloque1.getX() - 20, this.bloque1.getY(), null);
                 
                 if(this.mario.vSalto()){g2.drawImage(this.mario.salto(), this.mario.getX(), this.mario.getY(), null);}
  		else{g2.drawImage(this.mario.caminar("Mario", 25), this.mario.getX(), this.mario.getY(), null);}

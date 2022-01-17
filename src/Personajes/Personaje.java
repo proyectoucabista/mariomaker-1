@@ -122,10 +122,29 @@ public class Personaje{
 		img = ico.getImage();
 		return img;
 	}
+    
+    // Detección de contactos bajo Mario
     public boolean contactoAntes(Objeto objet){
-    	if(this.vMiraDerecha() == true){
-                return !(this.x + this.altura < objet.getX() || this.x + this.ancho > objet.getX() + 5 || this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
-    	}else{return false;}	    	
+            return !(this.x + this.ancho < objet.getX() || this.x + this.ancho > objet.getX() + 5 ||this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
+	} 
+    
+    // Detección de contactos bajo Mario
+    protected boolean contactoAtras(Objeto objet){		
+            return !(this.x > objet.getX() + objet.getAncho() || this.x + this.ancho < objet.getX() + objet.getAncho() - 5 || this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
+	}
+
+    // Detección de contactos bajo Mario
+    protected boolean contactoDebajo(Objeto objet){		
+            return !(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y + this.altura < objet.getY() || this.y + this.altura > objet.getY() + 5);		
+	}
+
+    // Detección de contactos bajo Mario
+    protected boolean contactoSobre(Objeto objet){
+            return !(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y < objet.getY() + objet.getAltura() || this.y > objet.getY() + objet.getAltura() + 5);
+	}   
+    
+    public boolean cerca(Objeto objet){  	
+            return (this.x > objet.getX() - 10 && this.x < objet.getX() + objet.getAncho() + 10) || (this.x + this.ancho > objet.getX() - 10 && this.x + this.ancho < objet.getX() + objet.getAncho() + 10);
     }
     
 }

@@ -1,5 +1,6 @@
 package Personajes;
 
+import Objetos.Objeto;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import Paquete1.Main;
@@ -67,6 +68,27 @@ public class Mario extends Personaje{
 		ico = new ImageIcon(getClass().getResource(str));
 		img = ico.getImage();
 		return img;
+	}
+         
+        public void contacto(Objeto objet) {
+		// contact horizontal
+		if((super.contactoAntes(objet) == true && this.vMiraDerecha() == true) || (super.contactoAtras(objet) == true && this.vMiraDerecha() == false)){
+			Main.escenario.setDx(0);
+		    this.setCaminar(false);
+		}
+		// contact avec un objet en dessous
+        if(super.contactoDebajo(objet) == true && this.salto == true){ // Mario salta sobre un objeto
+			Main.escenario.setySuelo(objet.getY());			
+		}else if(super.contactoDebajo(objet) == false){ //Mario cae al suelo inicial
+			Main.escenario.setySuelo(293); // Elevación inicial del suelo
+			if(this.salto == false){this.setY(243);} //Altitud inicial de Mario
+		}
+        //Contacto con un objeto arriba
+        if(super.contactoDebajo(objet) == true){
+			Main.escenario.setAlturaTecho(objet.getY() + objet.getAltura()); //el techo se convierte en la parte inferior del objeto
+		}else if(super.contactoDebajo(objet) == false && this.salto == false){
+			Main.escenario.setAlturaTecho(0);// altitud inicial del techo (cielo)
+		}     
 	}
 }
 

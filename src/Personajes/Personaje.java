@@ -103,7 +103,7 @@ public class Personaje{
 		ImageIcon ico;
 		Image img;
 		
-		if(this.caminar == false || Main.escenario.getxPos() <= 0){
+		if(this.caminar == false || Main.escenario.getxPos() <= 0 || Main.escenario.getxPos() > 4430){
 			if(this.miraDerecha == true){str = "/Imagenes/" + nom + "Derecha.png";}
 			else{str = "/Imagenes/" + nom + "Izquierda.png";}
 		}else{
@@ -124,27 +124,33 @@ public class Personaje{
 	}
     
     // Detección de contactos bajo Mario
-    public boolean contactoAntes(Objeto objet){
-            return !(this.x + this.ancho < objet.getX() || this.x + this.ancho > objet.getX() + 5 ||this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
-	} 
+    
+    protected boolean contactoAntes(Objeto objet){
+        if(this.x + this.ancho < objet.getX() || this.x + this.ancho > objet.getX() + 5 ||this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura()){return false;}
+        else{return true;}
+    } 
     
     // Detección de contactos bajo Mario
     protected boolean contactoAtras(Objeto objet){		
-            return !(this.x > objet.getX() + objet.getAncho() || this.x + this.ancho < objet.getX() + objet.getAncho() - 5 || this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura());
-	}
-
+        if(this.x > objet.getX() + objet.getAncho() || this.x + this.ancho < objet.getX() + objet.getAncho() - 5 || this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura()){return false;}
+        else{return true;}
+    }
+    
     // Detección de contactos bajo Mario
     protected boolean contactoDebajo(Objeto objet){		
-            return !(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y + this.altura < objet.getY() || this.y + this.altura > objet.getY() + 5);		
-	}
+        if(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y + this.altura < objet.getY() || this.y + this.altura > objet.getY() + 5){return false;}
+        else{return true;}		
+    }
 
     // Detección de contactos bajo Mario
     protected boolean contactoSobre(Objeto objet){
-            return !(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y < objet.getY() + objet.getAltura() || this.y > objet.getY() + objet.getAltura() + 5);
-	}   
+        if(this.x + this.ancho < objet.getX() + 5 || this.x > objet.getX() + objet.getAncho() - 5 || this.y < objet.getY() + objet.getAltura() || this.y > objet.getY() + objet.getAltura() + 5){return false;}
+        else{return true;}
+    }     
     
     public boolean cerca(Objeto objet){  	
-            return (this.x > objet.getX() - 10 && this.x < objet.getX() + objet.getAncho() + 10) || (this.x + this.ancho > objet.getX() - 10 && this.x + this.ancho < objet.getX() + objet.getAncho() + 10);
+    	if((this.x > objet.getX() - 10 && this.x < objet.getX() + objet.getAncho() + 10) || (this.x + this.ancho > objet.getX() - 10 && this.x + this.ancho < objet.getX() + objet.getAncho() + 10)){return true;}
+    	else{return false;}
     }
     
 }

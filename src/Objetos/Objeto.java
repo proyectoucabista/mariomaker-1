@@ -1,5 +1,7 @@
 package Objetos;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import Paquete1.Main;
 
 public class Objeto{
@@ -7,7 +9,9 @@ public class Objeto{
 	//**** VARIABLES ****//
 	private int ancho, altura; //dimensiones del objeto
 	private int x, y; //posicion del objeto
-	
+        
+	protected Image imgObjeto;
+	protected ImageIcon icoObjeto;
 	
 	//**** CONSTRUCTOR ****//	
 	public Objeto(int x, int y, int ancho, int altura){
@@ -20,7 +24,7 @@ public class Objeto{
 	
 	
 	 //**** GETTERS ****//	
-    public int getX() {return x;}
+        public int getX() {return x;}
 
 	public int getY() {return y;}
 
@@ -28,7 +32,8 @@ public class Objeto{
 
 	public int getAltura() {return altura;}
 	
-	
+	public Image getImgObjeto() {return imgObjeto;}
+
 	//**** SETTERS ****//	
 	public void setX(int x) {this.x = x;}
 

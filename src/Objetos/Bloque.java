@@ -1,31 +1,24 @@
-
 package Objetos;
 
-import java.awt.Image;
 import javax.swing.ImageIcon;
 
-
 public class Bloque extends Objeto{
+    
 	//**** VARIABLES ****//
-		private Image imgBloque;
-		private ImageIcon icoBloque;
 		
-		
-		//**** CONSTRUCTOR	****//	
-		public Bloque(int x, int y) {
+        //**** CONSTRUCTOR	****//	
+        public Bloque(int x, int y) {
+            super(x, y, 30, 30);		
+            super.icoObjeto = new ImageIcon(getClass().getResource("/Imagenes/Ladrillo.png"));
+            super.imgObjeto = this.icoObjeto.getImage();
+        }
 
-			super(x, y, 30, 30);		
-			this.icoBloque = new ImageIcon(getClass().getResource("/Imagenes/Ladrillo.png"));
-			this.imgBloque = this.icoBloque.getImage();
-		}
-		
-		
-		//**** GETTERS ****//		
-		public Image getImgBloque() {return imgBloque;}
-			
-			
-		//**** SETTERS ****//
-			
 
-		//**** METHODES ****//
+        //**** GETTERS ****//		
+   
+
+        //**** SETTERS ****//
+
+
+        //**** METHODES ****//
 }

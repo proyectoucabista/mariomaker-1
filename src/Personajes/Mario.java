@@ -1,6 +1,7 @@
 package Personajes;
 
 import Objetos.Objeto;
+import Objetos.Pieza;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import Paquete1.Main;
@@ -25,9 +26,7 @@ public class Mario extends Personaje{
 	this.contadorSalto = 0;
 	}
 
-		
-	
-		
+        
 	//**** GETTERS ****//		
 	public Image getImgMario() {return imgMario;}
 
@@ -89,6 +88,13 @@ public class Mario extends Personaje{
             }else if(super.contactoDebajo(objet) == false && this.salto == false){
                     Main.escenario.setAlturaTecho(0);// Altitud inicial de la plataforma (cielo)
             }     
+	}
+        
+        public boolean contactoPieza(Pieza piece){
+		// Tocar una moneda no tiene efecto en Mario
+		if(this.contactoAntes(piece) == true || this.contactoAntes(piece) == true || this.contactoDebajo(piece) == true || this.contactoDebajo(piece) == true){
+			return true;			
+		}else{return false;}
 	}
 }
 

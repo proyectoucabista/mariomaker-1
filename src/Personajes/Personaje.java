@@ -27,7 +27,6 @@ public class Personaje{
     }
     
     public Personaje(int x, int y) {
-        
         this.x = x;
         this.y = y;
         this.ancho = ancho;
@@ -95,7 +94,7 @@ public class Personaje{
         return miraDerecha;
     }
 
-     // metodos..
+    // metodos..
     
     public Image caminar(String nom, int frecuencia){
 		
@@ -124,7 +123,6 @@ public class Personaje{
 	}
     
     // Detección de contactos bajo Mario
-    
     protected boolean contactoAntes(Objeto objet){
         if(this.x + this.ancho < objet.getX() || this.x + this.ancho > objet.getX() + 5 ||this.y + this.altura <= objet.getY() || this.y >= objet.getY() + objet.getAltura()){return false;}
         else{return true;}

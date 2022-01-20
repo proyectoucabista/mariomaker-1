@@ -2,6 +2,7 @@ package Paquete1;
 
 import Objetos.Bloque;
 import Objetos.Objeto;
+import Objetos.Pieza;
 import Objetos.Tuberia;
 import Personajes.Mario;
 
@@ -62,12 +63,24 @@ public class Escenario extends JPanel {
         public Bloque bloque11;	
         public Bloque bloque12;	
         
+        public Pieza pieza1;
+	public Pieza pieza2;
+	public Pieza pieza3;
+	public Pieza pieza4;
+	public Pieza pieza5;
+	public Pieza pieza6;
+	public Pieza pieza7;
+	public Pieza pieza8;
+	public Pieza pieza9;
+	public Pieza pieza10;
+        
         private ImageIcon icoBandera;
 	private Image imgBandera;
 	private ImageIcon icoCastilloFin;
 	private Image imgCastilloFin;
         
-        private ArrayList<Objeto> tabObjetos; // tableau qui enregistre tous les objets du jeu.
+        private ArrayList<Objeto> tabObjetos; // matriz que almacena todos los objetos del juego.
+        private ArrayList<Pieza> tabPiezas;  // matriz que almacena todos las piezas del juego.
         
 	//**** CONSTRUCTOR ****//	
 	public Escenario(){
@@ -84,7 +97,6 @@ public class Escenario extends JPanel {
                 //FONDO1
 		icoFond = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png"));
 		this.imgFondo1 = this.icoFond.getImage();
-                // FONDO2.1
                 this.imgFondo2 = this.icoFond.getImage();
                 
                 // MARIO
@@ -123,9 +135,22 @@ public class Escenario extends JPanel {
 		bloque11 = new Bloque(4200, 200);
 		bloque12 = new Bloque(4300, 210);
                 
+                pieza1 = new Pieza(402, 145);
+		pieza2 = new Pieza(1202, 140);
+		pieza3 = new Pieza(1272, 95);
+		pieza4 = new Pieza(1342, 40);
+		pieza5 = new Pieza(1650, 145);
+		pieza6 = new Pieza(2650, 145);
+		pieza7 = new Pieza(3000, 135);
+		pieza8 = new Pieza(3400, 125);
+		pieza9 = new Pieza(4200, 145);
+		pieza10 = new Pieza(4600, 40);
+                
+                 //CASTILLO-FINAL
                 this.icoCastilloFin = new ImageIcon(getClass().getResource("/Imagenes/CastilloFin.png"));
 		this.imgCastilloFin = this.icoCastilloFin.getImage(); 
 		
+                 //BANDERA
 		this.icoBandera = new ImageIcon(getClass().getResource("/Imagenes/Bandera.png"));
 		this.imgBandera = this.icoBandera.getImage(); 
 		
@@ -152,6 +177,19 @@ public class Escenario extends JPanel {
 		this.tabObjetos.add(this.bloque10);
 		this.tabObjetos.add(this.bloque11);
 		this.tabObjetos.add(this.bloque12);
+                
+                tabPiezas = new ArrayList<Pieza>();
+                
+		this.tabPiezas.add(this.pieza1);
+		this.tabPiezas.add(this.pieza2);
+		this.tabPiezas.add(this.pieza3);
+		this.tabPiezas.add(this.pieza4);
+		this.tabPiezas.add(this.pieza5);
+		this.tabPiezas.add(this.pieza6);
+		this.tabPiezas.add(this.pieza7);
+		this.tabPiezas.add(this.pieza8);
+		this.tabPiezas.add(this.pieza9);
+		this.tabPiezas.add(this.pieza10);
                 
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -210,10 +248,20 @@ public class Escenario extends JPanel {
 		    if(this.mario.cerca(this.tabObjetos.get(i))){this.mario.contacto(this.tabObjetos.get(i));}
 		}
 		
+                // Detección de contactos de mario con monedas.
+ 	 	for(int i = 0; i < this.tabPiezas.size(); i++){
+ 	 		if(this.mario.cerca(this.tabPiezas.get(i))){
+                            if(this.mario.contactoPieza(this.tabPiezas.get(i))){
+                                this.tabPiezas.remove(i);
+                            }
+ 	 	    }
+ 	 	}
+                
                 // Mover todos los objetos "fijos" en el juego.
                 this.desplazamientoFondo();
                 if(this.xPos >= 0 && this.xPos <= 4430){
 		    for(int i = 0; i < this.tabObjetos.size(); i++){this.tabObjetos.get(i).desplazamiento();}
+                    for(int i = 0; i < this.tabPiezas.size(); i++){this.tabPiezas.get(i).desplazamiento();}		
 		}
 		
                 //Imagenes de fondo
@@ -229,6 +277,11 @@ public class Escenario extends JPanel {
  	 		g2.drawImage(this.tabObjetos.get(i).getImgObjeto(), this.tabObjetos.get(i).getX(), this.tabObjetos.get(i).getY(), null);
  	 	}
                
+                // Images de piezas
+ 	 	for(int i = 0; i < this.tabPiezas.size(); i++){
+ 	 		g2.drawImage(this.tabPiezas.get(i).bouge(), this.tabPiezas.get(i).getX(), this.tabPiezas.get(i).getY(), null);
+ 	 	}
+                
                 // Imagenes del final
  	 	g2.drawImage(imgBandera, 4650 - this.xPos, 115, null);
  		g2.drawImage(imgCastilloFin, 5000 - this.xPos, 145, null);

@@ -9,44 +9,45 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
-// LIBRERIAS
 
 /**
- * Este archivo Se utiliza para abrir, solicitar abrir, guardar, solicitar guardar y leer archivos.
- 
+ * Se utiliza para abrir, solicitar abrir, guardar, solicitar guardar y leer archivos.
+ * @autor Reed Weichler
+ *
  */
 public class FileOpener{
-	private JFileChooser eleccion;
+	private JFileChooser chooser;
 	private Component component;
 	private String ext;
 	
 	private BufferedReader reader;
 	
 	/**
-	 * Creates a new FileOpener with the parent Component specified
-	 * @param component component to be used when displaying the JFileChooser
+	 * Crea un nuevo FileOpener con el componente principal especificando el
+          componente que se utilizará al mostrar el JFileChooser
 	 */
 	public FileOpener(Component component){
-		eleccion = new JFileChooser();
-		eleccion.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		eleccion.setFileFilter(new CustomFilter("JGameMaker", "JGameMaker Level")); // nombre del juego
+		chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setFileFilter(new CustomFilter("JGameMaker", "JGameMaker Nivel"));
 		this.component = component;
-		ext = "JGameMaker"; // extension del juego
+		ext = "JGameMaker";
 		
 	}
 	
-	/*
-	  Pide al usuario que guarde un archivo abriendo un JFileChooser
-          return el archivo que se elige, nulo si no se elige ninguno 
+	/**
+	 * Pide al usuario que guarde un archivo abriendo un JFileChooser
+*           retorna el archivo que se elige, nulo si no se elige ninguno
 	 */
-	public File guardarArchivo(){
-		if(eleccion == null || component == null)return null;
+	public File saveFile(){
+		if(chooser == null || component == null)return null;
 		File file;
-		int returnVal = eleccion.showSaveDialog(eleccion);
+		int returnVal = chooser.showSaveDialog(chooser);
 		if(returnVal != JFileChooser.APPROVE_OPTION) return null;
-		file = eleccion.getSelectedFile();
+		file = chooser.getSelectedFile();
 		String name = file.getPath();
 		String ext = '.' + this.ext;
 		if(!name.substring(name.length()-ext.length(), name.length()).equals(ext)){
@@ -57,34 +58,35 @@ public class FileOpener{
 	}
 	
 	/**
-	 * Prompts the user to open a file by opening a JFileChooser
-	 * @return the File that is chosen, null if none is chosen
+	 * Pide al usuario que abra un archivo abriendo un JFileChooser
+*           retorna el archivo que se elige, nulo si no se elige ninguno
 	 */
 	public File openFile(){
-		if(eleccion == null || component == null)return null;
+		if(chooser == null || component == null)return null;
 		File file;
-		int returnVal = eleccion.showOpenDialog(component);
+		int returnVal = chooser.showOpenDialog(component);
 		if(returnVal != JFileChooser.APPROVE_OPTION) return null;
-		file = eleccion.getSelectedFile();
+		file = chooser.getSelectedFile();
 		try{
 			file.createNewFile();
 			return file;
 		}catch(Exception ex){
-			System.err.println("No se puede leer el archivo");
+			System.err.println("Error al cargar");
 			return null;
 		}
 	}
-	/*
-	 Abre un nuevo FileReader para leer el archivo especificado por la ruta
-         return verdadero si se puede leer, falso si no
+	/**
+	 * Abre un nuevo FileReader para leer el archivo especificado por la ruta
+*          al archivo
+*           retorna verdadero si se puede leer, falso si no
 	 */
 	public boolean readFile(String path){
 		return readFile(new File(path));
 	}
-	/*
-	  Abre un nuevo archivo con FileReader para leer el archivo
-          
-          return verdadero si se puede leer, falso si no
+	/**
+	 * Abre un nuevo FileReader para leer el archivo especificado por la ruta
+*          al archivo
+*           retorna verdadero si se puede leer, falso si no
 	 */
 	public boolean readFile(File file){
 		try{
@@ -97,9 +99,9 @@ public class FileOpener{
 
 	}
 	
-	/*
-	  Obtiene la siguiente línea del FileReader después de llamar a readFile
-          Return la siguiente línea si se puede leer, nulo si no
+	/**
+	 * obtiene la siguiente línea del FileReader después de llamar a readFile
+*           retorna la siguiente línea si se puede leer, nulo si no
 	 */
 	public String readLine(){
 		if(reader == null)return null;
@@ -117,7 +119,7 @@ public class FileOpener{
 		private String ext, description;
 		
 		public CustomFilter(String ext, String description){
-			this.ext = '.' + ext; // .JGameMaker
+			this.ext = '.' + ext;
 			this.description = description;
 		}
 		public boolean accept(File file) {
